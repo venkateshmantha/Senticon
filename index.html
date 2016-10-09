@@ -189,6 +189,12 @@
         font-size: 150px;
     }
   }
+  .hidden{
+    display:none;
+  }
+  .unhidden{
+    display:block;
+  }
   </style>
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
@@ -210,44 +216,44 @@
   <h1 style="font-size: 34px">Twitter sentiment analysis</h1>
   <p>Go ahead and type a keyword!</p>
   <form class="form-inline" id="search-form">
-    <input type="text" name="search" class="form-control" size="50" placeholder="Your keyword or hashtag" required>
-    <button type="submit" class="btn btn-danger">Search</button>
+    <input type="text" name="search" onclick="hide(this,'emojis')" class="form-control" size="50" placeholder="Your keyword or hashtag" required>
+    <button type="submit" class="btn btn-danger" onclick="unhide(this,'emojis')">Search</button>
   </form>
 </div>
 
 
-<!-- Container (Services Section) -->
-<div id="services" class="container-fluid text-center">
+<!-- Container (Emojis Section) -->
+<div id="emojis" class="container-fluid text-center hidden">
   <h2>Emotions</h2>
   <br>
   <div class="row slideanim">
     <div class="col-sm-3"></div>
     <div class="col-sm-3">
       <span style="font-size: 25px"><i class="em em-angry"></i></span>
-      <h4 id="emotions0"></h4>
+      <h4 id="emotions_angry">Angry</h4>
       
       <span style="font-size: 25px"><i class="em em-joy"></i></span>
-      <h4 id="emotions1"></h4>
+      <h4 id="emotions_joy">Joy</h4>
       
       <span style="font-size: 25px"><i class="em em-confounded"></i></span>
-      <h4 id="emotions2"></h4>
+      <h4 id="emotions_confounded">Disgust</h4>
       
       <span style="font-size: 25px"><i class="em em-fearful"></i></span>
-      <h4 id="emotions3"></h4>
+      <h4 id="emotions_fearful">Fear</h4>
       
       <span style="font-size: 25px"><i class="em em-disappointed"></i></span>
-      <h4 id="emotions4"></h4>
+      <h4 id="emotions_disappointed">Sad</h4>
     </div>
     <div class="col-sm-3">
-      <p id="scores0"></p>
+      <p id="scores_angry"></p>
       <br>
-      <p id="scores1"></p>
+      <p id="scores_joy"></p>
       <br>
-      <p id="scores2"></p>
+      <p id="scores_confounded"></p>
       <br>
-      <p id="scores3"></p>
+      <p id="scores_fearful"></p>
       <br>
-      <p id="scores4"></p>
+      <p id="scores_disppointed"></p>
       <br>
     </div>
     <div class="col-sm-3"></div>
@@ -340,24 +346,16 @@ $('#search-form').on('submit', function (ev) {
                             } else {
                               console.log(data);
                               //console.log(data.tones[].length());
-                                var scores = new Array();
-                                var emotions = new Array();
+                                var map = {};
                                 for(var i=0;i<data.tones.length;i++){
-                                scores.push((data.tones[i].score)*100);
-                                emotions.push(data.tones[i].tone_name);
+                                map[data.tones[i].tone_name]=(data.tones[i].score)*100;
                                 }
-                                document.getElementById('emotions0').innerHTML = emotions[0];
-                                document.getElementById('emotions1').innerHTML = emotions[1];
-                                document.getElementById('emotions2').innerHTML = emotions[2];
-                                document.getElementById('emotions3').innerHTML = emotions[3];
-                                document.getElementById('emotions4').innerHTML = emotions[4];
-                                document.getElementById('scores0').innerHTML = scores[0];
-                                document.getElementById('scores1').innerHTML = scores[1];
-                                document.getElementById('scores2').innerHTML = scores[2];
-                                document.getElementById('scores3').innerHTML = scores[3];
-                                document.getElementById('scores4').innerHTML = scores[4];
-                                console.log(scores);
-                                console.log(emotions);
+                                document.getElementById('scores_angry').innerHTML = map['Anger'];
+                                document.getElementById('scores_joy').innerHTML = map['Joy'];
+                                document.getElementById('scores_confounded').innerHTML = map['Disgust'];
+                                document.getElementById('scores_fearful').innerHTML = map['Fear'];
+                                document.getElementById('scores_disppointed').innerHTML = map['Sadness'];
+                              
                             }
                         })
                     },
@@ -369,6 +367,22 @@ $('#search-form').on('submit', function (ev) {
             });
 
 });
+
+function unhide(clickedButton, divID) {
+var item = document.getElementById(divID);
+if (item) {
+    if(item.className=='container-fluid text-center hidden'){
+        item.className = 'container-fluid text-center unhidden' ;
+    }
+}}
+
+function hide(clickedInput, divID) {
+var item = document.getElementById(divID);
+if (item) {
+    if(item.className=='container-fluid text-center unhidden'){
+        item.className = 'container-fluid text-center hidden' ;
+    }
+}}
 
 </script>
 
