@@ -18,4 +18,4 @@ app.get('/ajax/endpoint', function (req, res) {
 });
 
 console.log('localhost:8080');
-app.listen(5000);
+app.listen(process.env.PORT || 5000);
