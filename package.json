@@ -11,9 +11,7 @@
   "dependencies": {
     "express": "^4.14.0",
     "twitter": "^1.4.0",
-    "watson-developer-cloud": "^2.4.6"
-  },
-  "devDependencies": {
+    "watson-developer-cloud": "^2.4.6",
     "nodemon": "^1.11.0"
   }
 }
