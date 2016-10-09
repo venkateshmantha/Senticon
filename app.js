@@ -5,8 +5,7 @@ var app = express();
 
 
 app.get('/', function(req, res){
-	res.sendStatus(200);
-    // res.sendFile(path.resolve('./index.html'));
+    res.sendFile(path.resolve('./index.html'));
 });
 
 app.get('/ajax/endpoint', function (req, res) {
